@@ -3,6 +3,7 @@ from keras.utils import image_dataset_from_directory
 
 base_dir = pathlib.Path("data")
 
+# Read in datasets and resize images to 180x180
 train_dataset = image_dataset_from_directory(
  base_dir / "train",
  image_size=(180, 180),
@@ -17,13 +18,17 @@ validation_dataset = image_dataset_from_directory(
 from tensorflow import keras
 from keras import layers
 
+# VGG Image net convolution base used for feature extraction
 conv_base = keras.applications.vgg16.VGG16(
  weights="imagenet",
  include_top=False,
  input_shape=(180, 180, 3)
 )
+# Freeze convolution layers
 conv_base.trainable = False
 
+# Basic data augmentation to resist overfitting
+# and pad small dataset
 data_augmentation = keras.Sequential(
  [
  layers.RandomFlip("horizontal"),
@@ -32,6 +37,8 @@ data_augmentation = keras.Sequential(
  ]
 )
 
+# Model definition, data augmentation, convolution base
+# and new dense classifier
 inputs = keras.Input(shape=(180, 180, 3))
 x = data_augmentation(inputs)
 x = keras.applications.vgg16.preprocess_input(x)
