@@ -55,7 +55,7 @@ model.compile(loss="binary_crossentropy",
 
 callbacks = [
  keras.callbacks.ModelCheckpoint(
- filepath="convnet_from_scratch.keras",
+ filepath="tar_net.keras",
  save_best_only=True,
  monitor="val_loss")
 ]

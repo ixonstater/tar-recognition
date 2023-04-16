@@ -4,3 +4,5 @@ models
 *.jpg
 node_modules
 __pycache__
+*.zip
+*.keras
