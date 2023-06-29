@@ -52,6 +52,7 @@ model.compile(loss="binary_crossentropy",
  optimizer=keras.optimizers.RMSprop(0.002),
  metrics=["accuracy"]
 )
+print(model.summary())
 
 callbacks = [
  keras.callbacks.ModelCheckpoint(
